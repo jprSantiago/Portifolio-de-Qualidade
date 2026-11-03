@@ -1,0 +1,65 @@
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: nasalinha-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nasalinha
+      POSTGRES_PASSWORD: nasalinha123
+      POSTGRES_DB: nasalinha_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - nasalinha-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nasalinha -d nasalinha_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nasalinha-backend
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+      - "5555:5555"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - nasalinha-network
+    volumes:
+      - uploads_data:/app/uploads
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nasalinha-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:5001/api
+    depends_on:
+      - backend
+    networks:
+      - nasalinha-network
+
+volumes:
+  postgres_data:
+  uploads_data:
+
+networks:
+  nasalinha-network:
+    driver: bridge

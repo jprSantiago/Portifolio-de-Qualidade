@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enum para os níveis de acesso
+enum Role {
+  ADMIN
+  MEMBER
+  TRAINEE
+}
+
+// Enum para o status do check-in
+enum CheckInStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// Modelo de Usuário
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(MEMBER)
+  avatar    String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relacionamentos
+  checkIns CheckIn[]
+  points   Point[]
+
+  @@map("users")
+}
+
+// Modelo de Temporada
+model Season {
+  id              String   @id @default(uuid())
+  name            String
+  description     String?
+  startDate       DateTime
+  endDate         DateTime
+  isActive        Boolean  @default(false)
+  pointsPerCheckIn Int     @default(10)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relacionamentos
+  checkIns CheckIn[]
+  points   Point[]
+
+  @@map("seasons")
+}
+
+// Modelo de Check-in
+model CheckIn {
+  id        String        @id @default(uuid())
+  photoUrl  String
+  points    Int           @default(0)
+  status    CheckInStatus @default(PENDING)
+  notes     String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  // Relacionamentos
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  seasonId String
+  season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([seasonId])
+  @@index([status])
+  @@map("checkins")
+}
+
+// Modelo de Pontuação (agregada por temporada)
+model Point {
+  id          String   @id @default(uuid())
+  totalPoints Int      @default(0)
+  checkInsCount Int    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relacionamentos
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  seasonId String
+  season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, seasonId])
+  @@index([seasonId])
+  @@index([totalPoints])
+  @@map("points")
+}
