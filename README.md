@@ -10,7 +10,7 @@ Auditoria de QA do NaSalinha, sistema de check-in gamificado da Comp Júnior, fe
 
 | Casos planejados | Executados | Pass | Fail | Bugs (Crít./Maior/Menor) |
 | ---------------- | ---------- | ---- | ---- | ------------------------ |
-| 26               | 24         | 10   | 14   | 1 / 7 / 0                |
+| 26               | 25         | 10   | 15   | 1 / 7 / 0                |
 
 **Recomendação:** não está pronto para produção (falha de controle de acesso no check-in e pontos inconsistentes no ranking).
 

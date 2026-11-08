@@ -10,8 +10,6 @@
 - o cadastro não verifica a conta;
 - a moderação do admin não tem efeito nos pontos, então o ranking aceita e mantém pontos que não deveriam existir.
 
-PEDIDO AO TIME: Antes de lançar, é preciso corrigir pelo menos o BUG-CHK-01, o BUG-PTS-01 e o BUG-PTS-02, e depois rodar a regressão descrita em [regressao.md](regressao.md).
-
 ## 2. Escopo
 
 - **Dentro:** Autenticação JWT, Check-in por foto, Pontos e ranking.
@@ -26,11 +24,11 @@ PEDIDO AO TIME: Antes de lançar, é preciso corrigir pelo menos o BUG-CHK-01, o
 | ---------------- | ---------- | ---------- | ------ | ------ | -------------- |
 | Autenticação     | 8          | 8          | 5      | 3      | 0              |
 | Check-in         | 10         | 9          | 3      | 6      | 1              |
-| Pontos e ranking | 7          | 6          | 2      | 4      | 1              |
+| Pontos e ranking | 7          | 7          | 2      | 5      | 0              |
 | Ad-hoc           | 1          | 1          | 0      | 1      | 0              |
-| **Total**        | **26**     | **24**     | **10** | **14** | **2**          |
+| **Total**        | **26**     | **25**     | **10** | **15** | **1**          |
 
-**Cobertura de execução:** 24 ÷ 26 = **92%** · **Taxa de aprovação:** 10 ÷ 24 = **42%**
+**Cobertura de execução:** 25 ÷ 26 = **96%** · **Taxa de aprovação:** 10 ÷ 25 = **40%**
 
 Os 3 casos de regressão (CT-JWT-REG-01, CT-CHK-REG-01, CT-PTS-REG-01) são cenários simulados, descritos em [regressao.md](regressao.md). Por isso não entram na conta de Pass e Fail.
 
@@ -43,7 +41,7 @@ A suíte de API no Postman (Runner, coleção `NaSalinha QA`) registrou:
 ```mermaid
 pie title Resultado dos casos executados
     "Pass" : 10
-    "Fail" : 14
+    "Fail" : 15
 ```
 
 A matriz completa está em [casos-de-teste.md](casos-de-teste.md).
@@ -84,7 +82,7 @@ A suíte de API pode ser reexecutada pelo terminal com o Newman (comando em [reg
 
 - **"Mesma foto" (RF-04):** foi interpretada como o mesmo arquivo enviado de novo (real.jpg duas vezes).
 - **RF-01:** foi interpretado como exigindo conta PENDENTE, código por e-mail e tela para digitar o código. Nenhum dos três existe.
-- **CT-PTS-API-14:** não foi executado porque depende de envios em horários controlados (23h50 e 0h10). O comportamento relacionado, de aceitar mais de um check-in no mesmo dia, foi visto no CT-CHK-API-13.
+- **CT-PTS-API-14:** executado de forma simulada: o createdAt do primeiro check-in foi ajustado no banco para 23 horas atrás, e o segundo check-in foi aceito (201). Ligado ao BUG-CHK-02.
 - **CT-CHK-API-19:** não foi executado.
 - **CT-CHK-API-20:** exigiu alterar `CLOUDINARY_API_SECRET` em `backend/.env` e recriar o container. Uma primeira tentativa, sem a alteração aplicada, foi descartada.
 - **Ordem da coleção:** a coleção do Postman depende da ordem e do estado do banco. Tokens expiram e o seed recria os IDs, por isso a pasta `00 Setup` precisa rodar de novo antes de cada bloco.

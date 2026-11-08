@@ -36,16 +36,16 @@ Ambiente local (Docker) com seed padrão
 
 ## Pontos e ranking
 
-| ID            | Título                                                         | Requisito | Tipo | Resultado | Bug                          |
-| ------------- | -------------------------------------------------------------- | --------- | ---- | --------- | ---------------------------- |
-| CT-PTS-FUN-04 | Admin exclui check-in pela tela e o ranking desconta os pontos | RF-08     | F+   | ❌        | BUG-PTS-01                   |
-| CT-PTS-API-02 | Saldo só sobe depois da aprovação, no valor da temporada       | RF-07     | A+   | ❌        | BUG-PTS-02                   |
-| CT-PTS-API-04 | Check-in rejeitado não soma pontos                             | RF-07     | A−   | ❌        | BUG-PTS-02                   |
-| CT-PTS-API-05 | Excluir check-in aprovado desconta os pontos                   | RF-08     | A+   | ❌        | BUG-PTS-01                   |
-| CT-PTS-API-13 | Excluir check-in inexistente → 404 e nenhum saldo muda         | RF-08     | A−   | ✅        |                              |
-| CT-PTS-API-01 | Ranking em ordem decrescente (desempate por check-ins)         | RF-09     | A+   | ✅        |                              |
-| CT-PTS-API-14 | Dois check-ins com menos de 24 h: o segundo é recusado         | RF-09     | A−   | ⏸         |                              |
-| CT-PTS-REG-01 | Regressão após corrigir o desconto na exclusão                 | —         | R    | 📝        | [regressao.md](regressao.md) |
+| ID            | Título                                                                                                         | Requisito | Tipo | Resultado | Bug                          |
+| ------------- | -------------------------------------------------------------------------------------------------------------- | --------- | ---- | --------- | ---------------------------- |
+| CT-PTS-FUN-04 | Admin exclui check-in pela tela e o ranking desconta os pontos                                                 | RF-08     | F+   | ❌        | BUG-PTS-01                   |
+| CT-PTS-API-02 | Saldo só sobe depois da aprovação, no valor da temporada                                                       | RF-07     | A+   | ❌        | BUG-PTS-02                   |
+| CT-PTS-API-04 | Check-in rejeitado não soma pontos                                                                             | RF-07     | A−   | ❌        | BUG-PTS-02                   |
+| CT-PTS-API-05 | Excluir check-in aprovado desconta os pontos                                                                   | RF-08     | A+   | ❌        | BUG-PTS-01                   |
+| CT-PTS-API-13 | Excluir check-in inexistente → 404 e nenhum saldo muda                                                         | RF-08     | A−   | ✅        |                              |
+| CT-PTS-API-01 | Ranking em ordem decrescente (desempate por check-ins)                                                         | RF-09     | A+   | ✅        |                              |
+| CT-PTS-API-14 | Dois check-ins com menos de 24 h: o segundo é recusado (simulado: createdAt ajustado para 23 h atrás no banco) | RF-09     | A−   | ❌        | BUG-CHK-02                   |
+| CT-PTS-REG-01 | Regressão após corrigir o desconto na exclusão                                                                 | —         | R    | 📝        | [regressao.md](regressao.md) |
 
 ## Ad-hoc (criados durante a execução)
 
@@ -55,9 +55,8 @@ Ambiente local (Docker) com seed padrão
 
 ## Totais
 
-**Planejados 26 · Executados 24 · Pass 10 · Fail 14 · Não executados 2** (mais 3 cenários de regressão descritos)
+**Planejados 26 · Executados 25 · Pass 10 · Fail 15 · Não executados 1** (mais 3 cenários de regressão descritos)
 
 Não executados:
 
 - **CT-CHK-API-19:** ficou para depois do CT-CHK-API-20.
-- **CT-PTS-API-14:** exige dois envios em horários controlados (23h50 e 0h10). O comportamento parecido, de aceitar mais de um check-in no mesmo dia, já aparece no CT-CHK-API-13.
