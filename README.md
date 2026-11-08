@@ -17,7 +17,7 @@ Antes de lançar, é preciso corrigir pelo menos o BUG-CHK-01, o BUG-PTS-01 e o 
 **Recomendação:** não está pronto para produção (falha de controle de acesso no check-in e pontos inconsistentes no ranking).
 
 - Relatório completo: [docs/relatorio-de-testes.md](docs/relatorio-de-testes.md)
-- Vídeo de demonstração:
+- Vídeo de demonstração: https://youtu.be/IUE2zhQdtfY
 
 ## Escopo
 
