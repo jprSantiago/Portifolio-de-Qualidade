@@ -1,0 +1,2108 @@
+{
+  "info": {
+    "_postman_id": "fc686a10-e452-4613-b302-4687469a9d5c",
+    "name": "NaSalinha QA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "60026553",
+    "_collection_link": "https://go.postman.co/collection/60026553-fc686a10-e452-4613-b302-4687469a9d5c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "00 Setup",
+      "item": [
+        {
+          "name": "Login admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"login admin 200\", () => pm.response.to.have.status(200));",
+                  "const d = pm.response.json().data;",
+                  "pm.environment.set(\"tokenAdmin\", d.accessToken);",
+                  "pm.environment.set(\"adminId\", d.user.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{senhaSeed}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login member",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"login member 200\", () => pm.response.to.have.status(200));",
+                  "const d = pm.response.json().data;",
+                  "pm.environment.set(\"tokenMember\", d.accessToken);",
+                  "pm.environment.set(\"refreshTokenMember\", d.refreshToken);",
+                  "pm.environment.set(\"lucasId\", d.user.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{memberEmail}}\",\n  \"password\": \"{{senhaSeed}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login member 2 (Maria)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"login maria 200\", () => pm.response.to.have.status(200));",
+                  "const d = pm.response.json().data;",
+                  "pm.environment.set(\"tokenMember2\", d.accessToken);",
+                  "pm.environment.set(\"mariaId\", d.user.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{member2Email}}\",\n  \"password\": \"{{senhaSeed}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login trainee",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"login trainee 200\", () => pm.response.to.have.status(200));",
+                  "const d = pm.response.json().data;",
+                  "pm.environment.set(\"tokenTrainee\", d.accessToken);",
+                  "pm.environment.set(\"pedroId\", d.user.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{traineeEmail}}\",\n  \"password\": \"{{senhaSeed}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar temporada ativa",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const s = pm.response.json().data;",
+                  "pm.environment.set(\"seasonAtivaId\", s.id);",
+                  "pm.environment.set(\"pontosPorCheckin\", s.pointsPerCheckIn);",
+                  "console.log(\"Temporada ativa:\", s.name, \"| pontos por check-in:\", s.pointsPerCheckIn);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/seasons/active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons",
+                "active"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar check-in do Lucas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const lista = pm.response.json().data;",
+                  "pm.test(\"o Lucas tem pelo menos 1 check-in\", () => pm.expect(lista.length).to.be.above(0));",
+                  "pm.environment.set(\"checkinLucasId\", lista[0].id);",
+                  "pm.environment.set(\"checkinLucasPontos\", lista[0].points);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenMember}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/my-checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "my-checkins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar check-in da Maria",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const lista = pm.response.json().data;",
+                  "pm.test(\"a Maria tem pelo menos 1 check-in\", () => pm.expect(lista.length).to.be.above(0));",
+                  "pm.environment.set(\"checkinMariaId\", lista[0].id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenMember2}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/my-checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "my-checkins"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "noauth"
+      }
+    },
+    {
+      "name": "01 Autenticação",
+      "item": [
+        {
+          "name": "CT-JWT-API-01 POST /auth/login senha errada → 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Credenciais inválidas\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{memberEmail}}\",\n  \"password\": \"errada1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-07a POST /seasons com admin → 201",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));",
+                  "const s = pm.response.json().data;",
+                  "pm.test(\"criou inativa\", () => pm.expect(s.isActive).to.eql(false));",
+                  "pm.environment.set(\"seasonApi07Id\", s.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Temporada API-07\",\n  \"description\": \"Criada pelo CT-JWT-API-07\",\n  \"startDate\": \"2027-01-01\",\n  \"endDate\": \"2027-06-30\",\n  \"isActive\": false,\n  \"pointsPerCheckIn\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/seasons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-07b GET /users com admin → 200 sem senha",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"devolve uma lista\", () => pm.expect(pm.response.json().data).to.be.an(\"array\"));",
+                  "pm.test(\"não devolve a senha\", () => {",
+                  "  pm.expect(JSON.stringify(pm.response.json())).to.not.include(\"password\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-18 POST /auth/register conta nasce PENDENTE, sem tokens",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.variables.set(\"emailUnico\", `qa+${Date.now()}@teste.com`);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));",
+                  "const r = pm.response.json();",
+                  "pm.environment.set(\"emailNaoVerificado\", pm.variables.get(\"emailUnico\"));",
+                  "pm.test(\"não devolve tokens (conta ainda não verificada)\", () => {",
+                  "  pm.expect(r.data).to.not.have.property(\"accessToken\");",
+                  "  pm.expect(r.data).to.not.have.property(\"refreshToken\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Conta Nao Verificada\",\n  \"email\": \"{{emailUnico}}\",\n  \"password\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-19 POST /auth/login conta não verificada → recusar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"login recusado (401 ou 403)\", () => pm.expect(pm.response.code).to.be.oneOf([401, 403]));",
+                  "pm.test(\"mensagem exata do RF-02\", () => {",
+                  "  pm.expect(pm.response.json().message).to.eql(\"Por favor, verifique sua conta para continuar\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{emailNaoVerificado}}\",\n  \"password\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06a POST /seasons com member → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Temporada Invasora\",\n  \"startDate\": \"2028-01-01\",\n  \"endDate\": \"2028-06-30\",\n  \"isActive\": false,\n  \"pointsPerCheckIn\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/seasons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06b PUT /seasons/{{seasonAtivaId}} com member → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Temporada Hackeada\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/seasons/{{seasonAtivaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons",
+                "{{seasonAtivaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06c PATCH /seasons/{{seasonAtivaId}}/toggle-active com member → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/seasons/{{seasonAtivaId}}/toggle-active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons",
+                "{{seasonAtivaId}}",
+                "toggle-active"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06d PUT /checkins/{{checkinMariaId}} com member → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"REJECTED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins/{{checkinMariaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "{{checkinMariaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06e GET /users com member → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06f POST /seasons com trainee → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTrainee}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Temporada Invasora\",\n  \"startDate\": \"2028-01-01\",\n  \"endDate\": \"2028-06-30\",\n  \"isActive\": false,\n  \"pointsPerCheckIn\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/seasons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06g PUT /seasons/{{seasonAtivaId}} com trainee → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTrainee}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Temporada Hackeada\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/seasons/{{seasonAtivaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons",
+                "{{seasonAtivaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06h PATCH /seasons/{{seasonAtivaId}}/toggle-active com trainee → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTrainee}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/seasons/{{seasonAtivaId}}/toggle-active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons",
+                "{{seasonAtivaId}}",
+                "toggle-active"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06i PUT /checkins/{{checkinMariaId}} com trainee → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTrainee}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"REJECTED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins/{{checkinMariaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "{{checkinMariaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-JWT-API-06j GET /users com trainee → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTrainee}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{tokenMember}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "02 Check-in",
+      "item": [
+        {
+          "name": "CT-CHK-API-01 POST /checkins foto válida → 201",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));",
+                  "const c = pm.response.json().data;",
+                  "if (c && c.id) {",
+                  "  pm.environment.set(\"checkinNovoId\", c.id);",
+                  "  pm.environment.set(\"checkinNovoPontos\", c.points);",
+                  "}",
+                  "pm.test(\"photoUrl é do Cloudinary\", () => pm.expect(c.photoUrl).to.match(/^https:\\/\\/res\\.cloudinary\\.com/));",
+                  "pm.test(\"points igual ao pointsPerCheckIn\", () => pm.expect(c.points).to.eql(Number(pm.environment.get(\"pontosPorCheckin\"))));",
+                  "pm.test(\"associado à temporada ativa (RF-04)\", () => pm.expect(c.seasonId).to.eql(pm.environment.get(\"seasonAtivaId\")));",
+                  "pm.test(\"nasce PENDING (RF-05)\", () => pm.expect(c.status).to.eql(\"PENDING\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": "real.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-CHK-API-18 GET /checkins/:id próprio → 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"o check-in é do Lucas\", () => pm.expect(pm.response.json().data.userId).to.eql(pm.environment.get(\"lucasId\")));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/{{checkinNovoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "{{checkinNovoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-CHK-API-17 PUT /checkins/:id admin aprova → 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"status virou APPROVED\", () => pm.expect(pm.response.json().data.status).to.eql(\"APPROVED\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPROVED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins/{{checkinNovoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "{{checkinNovoId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-CHK-API-10 GET /checkins/:id de outro usuário → 403/404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"não deixa ver o check-in da Maria (403 ou 404)\", () => pm.expect(pm.response.code).to.be.oneOf([403, 404]));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/{{checkinMariaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "{{checkinMariaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-CHK-API-11 PUT /checkins/:id com member → 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Sem permissão para acessar este recurso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"REJECTED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins/{{checkinMariaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "{{checkinMariaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-CHK-API-13a POST /checkins 1º do dia",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"primeiro envio respondeu\", () => pm.expect(pm.response.code).to.be.oneOf([201, 400]));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": "real.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-CHK-API-13b POST /checkins 2º do dia, outra foto → recusar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"segundo check-in do dia é recusado (4xx)\", () => pm.expect(pm.response.code).to.be.within(400, 499));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": "outra.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-CHK-API-16a POST /checkins real.jpg (1º envio)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"primeiro envio respondeu\", () => pm.expect(pm.response.code).to.be.oneOf([201, 400]));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": "real.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-CHK-API-16b POST /checkins mesma foto de novo → recusar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"mesma foto é recusada (4xx)\", () => pm.expect(pm.response.code).to.be.within(400, 499));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": "real.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-CHK-API-20 POST /checkins com Cloudinary quebrado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"o envio falha (4xx ou 5xx)\", () => pm.expect(pm.response.code).to.be.at.least(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": "real.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{tokenMember}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "03 Pontos e ranking",
+      "item": [
+        {
+          "name": "CT-PTS-API-01 GET /rankings ordem decrescente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"ordenado por totalPoints desc e, no empate, checkInsCount desc\", () => {",
+                  "  const lista = pm.response.json().data;",
+                  "  for (let i = 1; i < lista.length; i++) {",
+                  "    const a = lista[i - 1], b = lista[i];",
+                  "    pm.expect(a.totalPoints, \"posição \" + i).to.be.at.least(b.totalPoints);",
+                  "    if (a.totalPoints === b.totalPoints) {",
+                  "      pm.expect(a.checkInsCount, \"desempate na posição \" + i).to.be.at.least(b.checkInsCount);",
+                  "    }",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-02a Preparar: anotar saldo do Lucas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const lista = pm.response.json().data;",
+                  "const linha = lista.find(p => p.userId === pm.environment.get(\"lucasId\"));",
+                  "const saldo = linha ? linha.totalPoints : 0;",
+                  "pm.environment.set(\"saldoLucasAntes\", saldo);",
+                  "console.log(\"Saldo do Lucas agora:\", saldo);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-02b POST /checkins (member)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));",
+                  "const c = pm.response.json().data;",
+                  "if (c && c.id) {",
+                  "  pm.environment.set(\"checkinPts02Id\", c.id);",
+                  "  pm.environment.set(\"checkinPts02Pontos\", c.points);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": "real.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-02c GET /rankings antes da aprovação: saldo igual",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const antes = Number(pm.environment.get(\"saldoLucasAntes\"));",
+                  "const lista = pm.response.json().data;",
+                  "const linha = lista.find(p => p.userId === pm.environment.get(\"lucasId\"));",
+                  "const agora = linha ? linha.totalPoints : 0;",
+                  "const esperado = antes;",
+                  "console.log(\"Antes:\", antes, \"Agora:\", agora, \"Esperado:\", esperado);",
+                  "pm.test(`check-in pendente não soma pontos (esperado ${esperado}, veio ${agora})`, () => pm.expect(agora).to.eql(esperado));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-02d PUT /checkins/:id admin aprova",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPROVED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins/{{checkinPts02Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "{{checkinPts02Id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-02e GET /rankings depois da aprovação: +pointsPerCheckIn",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const antes = Number(pm.environment.get(\"saldoLucasAntes\"));",
+                  "const lista = pm.response.json().data;",
+                  "const linha = lista.find(p => p.userId === pm.environment.get(\"lucasId\"));",
+                  "const agora = linha ? linha.totalPoints : 0;",
+                  "const esperado = antes + Number(pm.environment.get(\"pontosPorCheckin\"));",
+                  "console.log(\"Antes:\", antes, \"Agora:\", agora, \"Esperado:\", esperado);",
+                  "pm.test(`aprovação somou exatamente o pointsPerCheckIn (esperado ${esperado}, veio ${agora})`, () => pm.expect(agora).to.eql(esperado));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-04a Preparar: anotar saldo do Lucas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const lista = pm.response.json().data;",
+                  "const linha = lista.find(p => p.userId === pm.environment.get(\"lucasId\"));",
+                  "const saldo = linha ? linha.totalPoints : 0;",
+                  "pm.environment.set(\"saldoLucasAntes\", saldo);",
+                  "console.log(\"Saldo do Lucas agora:\", saldo);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-04b PUT /checkins/:id admin rejeita",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"status REJECTED\", () => pm.expect(pm.response.json().data.status).to.eql(\"REJECTED\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"REJECTED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins/{{checkinPts02Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "{{checkinPts02Id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-04c GET /rankings saldo caiu",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const antes = Number(pm.environment.get(\"saldoLucasAntes\"));",
+                  "const lista = pm.response.json().data;",
+                  "const linha = lista.find(p => p.userId === pm.environment.get(\"lucasId\"));",
+                  "const agora = linha ? linha.totalPoints : 0;",
+                  "const esperado = antes - Number(pm.environment.get(\"checkinPts02Pontos\"));",
+                  "console.log(\"Antes:\", antes, \"Agora:\", agora, \"Esperado:\", esperado);",
+                  "pm.test(`rejeição descontou os pontos do check-in (esperado ${esperado}, veio ${agora})`, () => pm.expect(agora).to.eql(esperado));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-05a Preparar: escolher check-in aprovado do Lucas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const aprovado = pm.response.json().data.find(c => c.status === \"APPROVED\");",
+                  "pm.test(\"achou um check-in aprovado\", () => pm.expect(aprovado).to.be.an(\"object\"));",
+                  "pm.environment.set(\"checkinExcluirId\", aprovado.id);",
+                  "pm.environment.set(\"checkinExcluirPontos\", aprovado.points);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/my-checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "my-checkins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-05b Preparar: anotar saldo do Lucas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const lista = pm.response.json().data;",
+                  "const linha = lista.find(p => p.userId === pm.environment.get(\"lucasId\"));",
+                  "const saldo = linha ? linha.totalPoints : 0;",
+                  "pm.environment.set(\"saldoLucasAntes\", saldo);",
+                  "console.log(\"Saldo do Lucas agora:\", saldo);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-05c DELETE /checkins/:id (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/{{checkinExcluirId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "{{checkinExcluirId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-05d GET /rankings pontos descontados",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const antes = Number(pm.environment.get(\"saldoLucasAntes\"));",
+                  "const lista = pm.response.json().data;",
+                  "const linha = lista.find(p => p.userId === pm.environment.get(\"lucasId\"));",
+                  "const agora = linha ? linha.totalPoints : 0;",
+                  "const esperado = antes - Number(pm.environment.get(\"checkinExcluirPontos\"));",
+                  "console.log(\"Antes:\", antes, \"Agora:\", agora, \"Esperado:\", esperado);",
+                  "pm.test(`exclusão descontou os pontos (esperado ${esperado}, veio ${agora})`, () => pm.expect(agora).to.eql(esperado));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-13a Preparar: fotografar o ranking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const foto = pm.response.json().data.map(p => [p.userId, p.totalPoints, p.checkInsCount]);",
+                  "pm.environment.set(\"rankingAntes\", JSON.stringify(foto));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-13b DELETE /checkins/:id inexistente → 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"success false com a mensagem certa\", () => {",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.success).to.eql(false);",
+                  "  pm.expect(r.message).to.eql(\"Check-in não encontrado\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-13c GET /rankings nenhum saldo mudou",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const agora = pm.response.json().data.map(p => [p.userId, p.totalPoints, p.checkInsCount]);",
+                  "pm.test(\"ranking igual ao de antes\", () => {",
+                  "  pm.expect(JSON.stringify(agora)).to.eql(pm.environment.get(\"rankingAntes\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rankings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rankings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-14a POST /checkins às 23h50",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": "real.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CT-PTS-API-14b POST /checkins às 0h10 (menos de 24 h) → recusar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"segundo check-in com menos de 24 h é recusado (4xx)\", () => pm.expect(pm.response.code).to.be.within(400, 499));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": "outra.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkins",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{tokenMember}}",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
