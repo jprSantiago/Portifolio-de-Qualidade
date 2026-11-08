@@ -2,7 +2,7 @@
 
 Legenda: F = funcional, A = API, R = regressão · + positivo, − negativo · ✅ Pass · ❌ Fail · ⏸ Não executado · 📝 Descrito (regressão simulada)
 
-· Ambiente local (Docker) com seed padrão
+Ambiente local (Docker) com seed padrão
 
 ## Autenticação JWT
 

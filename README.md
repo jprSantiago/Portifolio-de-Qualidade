@@ -1,4 +1,4 @@
-Portifólio de Qualidade: NaSalinha
+# Portifólio de Qualidade: NaSalinha
 
 Auditoria de QA do NaSalinha, sistema de check-in gamificado da Comp Júnior, feita como desafio da trilha de Quality Assurance 2026.2.
 
