@@ -6,8 +6,6 @@ Auditoria de QA do NaSalinha, sistema de check-in gamificado da Comp Júnior, fe
 ![Executados](https://img.shields.io/badge/executados-25-blue)
 ![Bugs](https://img.shields.io/badge/bugs-8-red)
 
-Antes de lançar, é preciso corrigir pelo menos o BUG-CHK-01, o BUG-PTS-01 e o BUG-PTS-02, e depois rodar a regressão descrita em [regressao.md](regressao.md).
-
 ## Resultado em números
 
 | Casos planejados | Executados | Pass | Fail | Bugs (Crít./Maior/Menor) |
