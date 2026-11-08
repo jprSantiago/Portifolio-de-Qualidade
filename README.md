@@ -3,8 +3,10 @@
 Auditoria de QA do NaSalinha, sistema de check-in gamificado da Comp Júnior, feita como desafio da trilha de Quality Assurance 2026.2.
 
 ![Casos](https://img.shields.io/badge/casos-26-blue)
-![Executados](https://img.shields.io/badge/executados-24-blue)
+![Executados](https://img.shields.io/badge/executados-25-blue)
 ![Bugs](https://img.shields.io/badge/bugs-8-red)
+
+Antes de lançar, é preciso corrigir pelo menos o BUG-CHK-01, o BUG-PTS-01 e o BUG-PTS-02, e depois rodar a regressão descrita em [regressao.md](regressao.md).
 
 ## Resultado em números
 
@@ -89,8 +91,8 @@ Portifolio-de-Qualidade/
 ├── docs/
 │   ├── casos-de-teste.md     # matriz de casos
 │   ├── regressao.md          # cenários de regressão por área
-│   ├── relatorio-de-testes.md
-│   └── evidencias/           # prints, GIFs e relatório do Newman
+│   └──relatorio-de-testes.md
+│
 ├── docker-compose.yml
 └── README.md
 ```
